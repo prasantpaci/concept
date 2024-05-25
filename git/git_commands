@@ -1,0 +1,22 @@
+To create user name:
+	$ git config --global user.name "your name goes here"
+To create repo:
+	$ mkdir example
+	$ cd example
+	$ git init
+To go to a state of any commit:
+	git checkout <commit hash>
+To return to the master HEAD:
+	git checkout master
+To compare the state of two branches:
+	$ git show-branch <branch1> <branch2>
+To compare the state of 2 branches with comit hash:
+	$ git show-branch --sha1-name <my_new_feature> <master>
+To merge <my_new_feature> branch into <master>:
+	$ git checkout master
+	$ git merge my_new_feature
+To apply the changes committed in different branch having hash (4a4f4492ded256aa7b29bf5176a17f9eda66efbb) to master branch:
+	$ git checkout master
+	$ git cherry-pick 4a4f4492ded256aa7b29bf5176a17f9eda66efbb
+
+

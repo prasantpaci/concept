@@ -1,0 +1,25 @@
+blkid : To show block devices in use
+lsscsi : To show all block devices
+lsblk : List block devices
+fdisk : For partition new block device/disk
+dd (disk/data duplicator): dd if=/dev/zero of=/dev/sdb count=100 : To fromat disk 
+partprobe : To update kernel of partition modification
+parted : For partition new block device/disk
+du -h --summarize [filename] : To summarize uses of a directory
+fcstat : To list stat of fibre channel
+pvcreate : To create physical volume
+pvdisplay : To display physical volume
+vgcreate : To create volume group
+vgdisplay : To display volume group
+vgextend : To add more physical volume in volume group
+lvcreate : To create logical volume
+lvdisply : To display logical volume
+lvextend : To add more more volume in logical volume
+lvchange : To enable/disable logical volume
+/etc/fstab : File for auto mount
+mount -a : To reload the /etc/fstab config
+/etc/systemd/system : Path for files to be included by system
+systemctl daemon-reload : To reload files/config from /etc/systemd/system
+systemctl start <filename at /etc/systemd/system> : To load/configure filename mentioned
+systemctl enable <filename at /etc/systemd/system> : To auto start at system start/reboot
+cryptsetup : To create encrypted partition / file system

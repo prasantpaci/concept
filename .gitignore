@@ -1,0 +1,2 @@
+# .gitignore
+python/general/__pycache__/
