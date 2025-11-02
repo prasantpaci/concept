@@ -1,0 +1,191 @@
+https://www.youtube.com/watch?v=zuegQmMdy8M
+
+int a;		// declaring a variable of data type int (4 bytes of memory)
+int *p;		// declaring pointer p (8 bytes of memory) which will hold the address of a variable of data type int 
+p = &a;		// assigning the address of variable a to pointer p (initializing pointer p)
+a = 5;		// assigning 5 to variable a (initializing variable a)
+print p;	// prints address of variable a (print &a;)
+print &p;	// prints address of pointer variable p
+print *p;	// dereferencing pointer p (prints value of variable a (5) whose address is stored in pointer p)
+*p = 8;		// assigns new value(8) to variable a 
+print a;	// prints 8
+
+##################################### Pointer arithmatic #####################################################
+int a = 10;			// declaring and initializing integer variable a with value 10 (4 bytes in memory)
+int* p;				// declaring pointer p of data type integer (will hold the address of variable of data type integer)
+p = &a;				// initializing pointer p with value of address of a (for sake of understanding &a = 0x00000200)
+printf(p);			// prints 0x00000200
+printf(sizeof(int);	// prints 4
+printf(p+1);			// prints 0x00000204
+
+################################################### Pointer & Memory mapping ###########################################
+int a = 1025;
+			// integer data will take 4 bytes (for sake of understanding address of first byte is 0x00000200)
+			// binary representation of 1025 in 4 bytes = 00000000 00000000 00000100 00000001
+			// memory mapping of binary values: 0x00000200 will hold 00000001 (LSB)
+												0x00000201 will hold 00000100
+												0x00000202 will hold 00000000
+												0x00000203 will hold 00000000 (MSB)
+			// Most significant bit of MSB will represent sign of the value: 0 -> positive; 1 -> negetive
+
+// Only arithmatic operations possible on pointer is + and -
+// Arithmatic operation on pointer will increase/decrease the memory address it is pointing based on the data type
+// For integer type pointer p+1 will increase memory address by 4 (0x00000200 -> 0x00000204) while for character type pointer it will increase by 1 (0x00000200 -> 0x00000201)
+
+####################################################################################################################################
+void *p0;		// declares a pointer of Null type also known as void pointer
+p0 = p;			// p does not need any typecasting
+				// since p0 does not have any pointer data type it can not be dereferenced but the value of p0 is accessible (p = &a) i.e printf(*p0) will throw error
+				// arithmatic operation on p0 will also throw an error as it does not how many memory address needs to increase i.e printf(p0+1) will throw error
+
+######################################################## pointer to pointer  ########################################################
+int x =5;		// declares a variable x of data type integer and initialize/assigns a value 5
+int *p;			// declares a pointer p of data type integer thus it can only store address of a variable of data type as integer
+p = &x;			// stores address of variable x
+*p = 6;			// modifies the value of variable a to 6
+int **q;		// declares a pointer to pointer of data type integer thus it can only store address of a pointer which has stored address of variable of integer data type
+q = &p;			// q stores the address of pointer p which has stored the address of variable x whose data type is integer
+int*** r = &q	// r stores the address of pointer q
+
+// *p can only store address of a variable of integer data type
+// **q can only store address of a pointer 
+// ***r can only store address of a pointer holding an address of a pointer
+
+############################################################## Pointer as function arguments - call by reference ################################################################
+void increament (int *p);			// declares a function which takes a integer pointer as an argument i.e address of a variable of integer data type
+int x = 10;							// declares a varible x of integer data type and initialize/assigns a value 10
+increament(&x);						// increament function is called by passing the reference of variable x i.e by passing the address of x (&x)
+
+#####################################################################################  Pointer and arrays #######################################################
+int A[] = {2,3,4,5,6};			// declares an array of unknown size of integer data type and initialize/assigns the values to 5 elements (consecutive address in memory)
+printf(A);						// prints the base address of array A or the address of first element of array (for sake of understanding A = 0x00000200)
+int *p = A;						// declares a pointer of integer data type and initialize/assigns address of array A
+int *p = &A;					// declares a pointer of integer data type and initialize/assigns address of array A
+int *p = &A[0];					// declares a pointer of integer data type and initialize/assigns address of first element of array A
+A++;							// Throws an error i.e it's an invalid statement
+p++;							// valid statement i.e it increament the memory address by 4 bytes
+printf(&A[i]);					// prints the address of ith element of array A
+printf(A+i);					// prints the address of ith element of array A
+printf(A[i]);					// prints the value of ith element of array A
+printf(*(A+i));					// prints the value of ith element of array A
+
+################################################################################## Arrays as function arguments ##################################################
+int A[] = {2,3,4,5,6};			// declares an array of unknown size of integer data type and initialize/assigns the values to 5 elements (consecutive address in memory)
+printf(sizeof(A));				// prints 20 (5*4bytes)
+printf(sizeof(A[0]));			// prints 4 (4 bytes) i.e size of first element of array A
+printf(sizeof(A)/sizeof(A[0]));	// prints 5 i.e total number of elements of array A
+int soe(int A[], int size);		// declares a function soe by passing array of integer data type as argument along with size of array
+								// compiler converts it into soe(int* A, int size)
+soe(A, size);					// function soe is called by passing array A and total number of elements in array A 
+
+################################################################################ Character arrays and pointers ###################################################
+\0						// This is known as NULL character which denotes the end of the string i.e it tells the compiler that this string ends here so don't read further memory address
+#include <string>		// Library to provide function to work on string type data e.g: strlen, strcpy, strcat
+char c[20] = "JOHN";	// declares and initialize/assigns variable c of data type character with value JOHN which should be inside double quote and it implies null character (\0) implictly
+						// declaration and initialisation should in the same line otherwise compiler will throw error
+						// this can be also written as <char c[] = "JOHN"> which will include null character as well
+printf(sizeof(c));		// prints 5 (4 bytes of string + 1 byte of null character)
+printf(strlen(c);		// prints 4 (strlen function does not count null (\0) character which is implicitly appended in variable c
+char c[5] = {'J', 'H', 'O', 'N', '\0'};	// another way of declaring and initializing of character array
+										// in this format null (\0) character is not appended automatically
+										// size of array should be >= size of string + 1 (for null character)
+char c1[6] = "Hello";	// stores in 6 consecutive memory address (for sake of understanding starting at 0x00000200 and ends at 0x00000205)
+printf(c1);				// prints address of first character of array i.e 0x00000200
+char *c2;				// declares a pointer of character data type i.e this pointer will store address of a variable of character data type
+c2 = c1;				// it's valid statement and it stores the starting address of array c1
+printf(c2[1]);			// prints e i.e second element of array c1
+						// this statement is equal to printf(*(c2+1)) or printf(*(c1+1))
+c2[0] = 'A';			// modifies the first element of array c1 i.e now c1 stores Aello
+// arrays are always passed to function by reference which passes the base address of array i.e address of first element of array
+char c[20] = "JOHN";	// string gets stored in the memory space of array which gets stored in the `stack frame` section of the application memory
+char *c = "JOHN";		// string get stored as compile time constant which gets stored in the `text` section of the application memory
+						// modification of constant c will throw compilation error i.e c[0] = A; is a invalid statement
+const char *c;			// this won't allow to modify any element of array c i.e c[0] = A; is a invalid statement
+
+############################################################################### Pointers and multi-dimensional arrays ###############################################
+int B[2][3];			// declares 2 1-dimensional arrays each with 3 elements (for sake of understanding starting at 0x00000200 and ends at 0x00000223)
+						// [[2, 3, 6], [4, 5, 8]]
+						// i.e B[0] ([2, 3, 6]) is an array of 3 integer elements (for sake of understanding starting at 0x00000200 and ends at 0x00000211)
+						// and B[1] ([4, 5, 8]) is also an array of 3 elements (for sake of understanding starting at 0x00000212 and ends at 0x00000223)
+int *p = B;	(wrong)		// it's an invalid statement i.e compiler will throw error for this statement
+int (*p)[3] = B;		// B is a pointer of an array of 3 integer element i.e it points to address of first element of B[0] which is equal to address of B[0][0] which is same as &B[0][0]
+printf(B);				// prints address of B[0][0] element (for sake of understanding it prints 0x00000200)
+printf(&B[0][0]);		// prints address of B[0][0] element (for sake of understanding it prints 0x00000200)
+printf(*B);				// prints address of B[0][0] element (for sake of understanding it prints 0x00000200)
+printf(B[0]);			// prints address of B[0][0] element (for sake of understanding it prints 0x00000200)
+printf(B+1);			// prints address of B[1][0] element (for sake of understanding it prints 0x00000212)
+printf(&B[1]);			// prints address of B[1][0] element (for sake of understanding it prints 0x00000212)
+printf(*(B+1));			// prints address of B[1][0] element (for sake of understanding it prints 0x00000212)
+						// B+1 (using arithmatic pointer) is pointer to an array B[1] and dereferencing that pointer will points to address of B[1][0]
+printf(*(B+1) + 2);		// prints address of B[1][2] element (for sake of understanding it prints 0x00000220)
+						// *(B+1) dereference to address of B[1][0] element and using arithmatic on pointer (*(B+1) + 2) adds 8 (2*4 bytes) memory address to 0x00000212
+printf(*(*B+1));		// prints value of B[0][1] element i.e 3
+						// B is a pointer to 1-Dimension array of 3 integer elements i.e it stores the address of array
+						// *B will dereference the address of B which is an array thus will return the base address of array i.e address of first element i.e address of B[0][1]
+						// *B+1 using arithmatic pointer will return address of B[0][1]th element (for sake of understanding it returns 0x00000204)
+						// *(*B+1) will dereference the address 0x00000204 which holds B[0][1]th element i.e 3
+// For a 2-Dimension array following 3 statements are equivalent to each other:
+	B[i][j]; == *(B[i] + j); == *(*(B+i) + j);
+
+######################################################################## Passing multi-dimensional array as argument to function #################################################
+int A[] = {2,3,4};														// 1-Dimension array
+int B[2][3] = {{1,3,5}, {2,4,6}};										// 2-Dimension array
+int C[3][2][2] = {{{1,2}, {3,4}}, {{5,6}, {7,8}}, {{9,10}, {11, 12}}};	// 3-Dimension array
+
+void func(int x[]);			// can be called as func(A);
+							// compiler will convert that into: void func(int *x);
+						
+void func(int x[][2]);		// can be called as func(B);
+							// compiler will convert that into: void func(int (*x)[2]);
+
+void func(int x[][2][2]);	// can be called as func(C);
+							// compiler will convert that into: void func(int (*x)[2][2]);
+
+int D[2][4] = {{1,2,3,4}, {5,6,7,8}}		// 2-Dimension array
+void func(int x[][2]);		// this can not be called as func(D);
+							// to call func with D array as an argument function defination should be: void func(int x[][4]);
+
+#################################################################### Pointers and dynamic memory allocation #######################################################################
+malloc():
+	It is used to allocate memory from reserved HEAP memory
+	It returns a pointer which is address from reserved HEAP memory of data type Null 
+	It is used for dynamically allocating the memory
+	syntax:
+		int *A = (int*)malloc(n*sizeof(int));		// n = number of integers in array A
+free():
+	It is used to free the dynamically allocated memory to avoid memory leakage
+	syntax:
+		free(A);
+realloc():
+	It modifies the size of previously dynamically allocated memory block
+	It returns pointer of data type Null
+	It can extend the memory block of previously allocated memory if additional required memory is available in contigious memory address otherwise allocate new block of memory
+	syntax:
+		int *B = (int*)realloc(A, 2*n*sizeof(int));		// increase the size of A memory block and assign the pointer to B
+		int *A = (int*)realloc(A, 2*n*sizeof(int));		// increase the size of A memory block and reassign the pointer to A
+		int *A = (int*)realloc(A, 0);					// equivalent to free(A)
+		int *A = (int*)realloc(NULL, n*sizeof(int));	// equivalent to malloc() and pointer to A
+
+#################################################################### Pointers as function returns #######################################################################
+int *Add(int* a, int* b);								// defination of function (called function)
+	int* c = (int*)malloc(sizeof(int));					// allocates memory from HEAP which persists after called function has finished execution
+	*c = (*a) + (*b);
+	return c											// returns address of HEAP memory
+int* ptr = Add(&x, &y);									// calling the function (inside calling function)
+printf(*ptr);											// prints/dereference the value at address pointed by pointer ptr
+
+################################################################### Code execution #######################################################################
+// source code (program.c) is passed to compiler
+// compiler converts the source code into machine code / executable / binary code(program.exe)
+// memory is allocated from main memory / RAM for 4 (code(text) + static / global + heap + stack) sections of program
+// machine code (11001010) is copied to code(text) section of memory allocated from RAM / main memory for the program
+// machine code / instructions are executed sequentially / consecutively unless a goto / function is called
+// function address / pointers always points to address of first instruction of the function
+
+################################################################### Function pointers #######################################################################
+int Add(int a, int b) {return a+b;}						// function to be called by calling function
+int c;
+int (*p)(int, int);										// creats a pointer p for a function which will return integer value and will take 2 integer values as arguments
+p = &Add;		// p = Add;								// Add function is assigned to pointer p can be also written as p = Add;
+c = (*p)(2,3);	// c = p(2,3);							// Add function is called by dereferencing the pointer p and passing 2,3 as arguments to the function and return value is assigned to c
+printf("%d", c);										// prints 5 which is the return value of function Add
