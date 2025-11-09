@@ -1,0 +1,168 @@
+https://www.youtube.com/watch?v=TtGM9GfBuok&list=PL0tP8lerTbX3MeIyMxGW2sLhWnPdn_xhd&index=1
+
+SHELL:
+	It provides an environment to user to execute commands and interact with kernel.
+PC interactions:
+	hardware -> kernel -> shell  -> applications
+
+echo $0						// To display the running shell
+/etc/shells					// Path for supported shells
+#! /usr/bin/bash				// shebang to tell shell which interpreter to use to execute file
+bash prog.sh					// to execute prog.sh without giving execute permission to script
+ctrl+c						// to terminate the execution
+ctrl+z						// to stop the execution
+#						// single line comment
+<<comment ... comment				// multi-lines comment
+var_name=value					// To create variable var_name and assign value to it
+echo $var_name					// To print the value stored in variable var_name
+var_name=$(hostname)				// To store the output of command `hostname` into variable var_name
+readonly var_name=value				// To define a constant variable var_name whose value cannot be changed
+my_array=(1 20.5 hello "gud 1")			// To define array using () and space delimiter
+echo "${my_array[2]}"				// To print 3rd element of my_array
+echo "${my_array[*]}"				// To print all elements of my_array
+echo "${#my_array[*]}"				// To print length (number of elements) of my_array
+echo "${my_array[*]:2:2}"			// To print a range of values from my_array, it prints from 3rd element and total 2 values will be printed i.e hello gud 1
+my_array+=(new 11 13.5)				// To append more values to my_array
+declare -A dict_array				// To declare dictionary array dict_array
+dict_array=([name]=paci [age]=100)		// To initialise dict_array
+echo "${dict_array[name]}"			// To print the value stored in the key `name` of dict_array
+
+###################################################### String operations ######################################################
+my_var="Hey buddy, how are you?"		// To declare and initialise the varible my_var with string value
+echo "${#my_var}"				// To print the lenth (total characters) of the string value
+${my_var^^}					// To convert my_var into UPPER case
+${my_var,,}					// To convert my_var into LOWER case
+new_var=${my_var/buddy/Paci}			// To replace `buddy` with `Paci` and return new string to new_var without changing the my_var
+${my_var:4:5}					// To slice from 5th element and total 5 characters from my_var i.e `buddy`
+
+###################################################### User Interactions (1:00:01) ##################################################### 
+read var_name					// Take input from user and assign that value to variable var_name
+read -p "what's your name?" NAME		// Prompt user with `what's your name?` and assign the input value to variable NAME
+
+####################################################### Arithmatic operations (1:05:57) ################################################
+x=10
+y=2
+let mul=$x*$y					// multiply the values of variable x and y and assign the value to compulsary variable `mul` using compulsary keyword `let`
+$(($x*$y))					// same operation using $(()) without any compulsary keyword and new variable
+
+###################################################### Conditional Statement (1:11:50) #################################################
+if-elif-else:
+	if [[ $x -ge 10 ]]			// compulsary `space` required after `[[` and before `]]`
+	then
+	echo "Do something"
+	elif [[ $x -gt 5 ]]			// compulsary `space` required after `[[` and before `]]`
+	then					// `then` is required after both `if` and `elif` condition
+	echo "Do another thing"
+	else					// `else` condition does not need `then`
+	echo "Do left over condition thing"
+	fi					// `if` must be closed by `fi`
+
+case:
+	read -p "Enter your values from (a b c):" choice
+	case $choice in
+		a)				// if the user has input `a`
+			echo "display date"
+			date			// execute `date` command
+			;;			// break the case condition check 
+		b)				// if the user has input `b`
+			echo "list directory"
+			ls			// execute the `ls` command
+			;;			// break the case condition check
+		c)				// if the user has input `c`
+			echo "display current path"
+			pwd			// Execute the `pwd` command
+			;;			// break the case condition check
+		*)				// To handle default condition 
+			echo "display the default behavior"
+			echo "Enter only mentioned value"
+			;;			// break the case condition check
+	esac					// compulsary keyword `esac` for closing the `case` condition check
+
+##################################################### Logical operators (1:33:40) ###################################################################
+[[ condition1 check ]] && [[ conditon2 check ]]			// All conditions should be true to  execute `then` block of code
+[[ condition1 check ]] || [[ conditon2 check ]]			// Any condition true will  execute `then` block of code
+[[ condition1 check ]] && echo "correct" || echo "wrong"	// ternery statement i.e if condition1 is true `correct` will be printed else `wrong`
+
+##################################################### Loops (1:44:35) ###############################################################################
+for num in 1 2 3 4 5						// provide list of space delimeter values also can be passed as {1..5} to specify the range
+do								// start the `for` loop`
+	echo "Number is $num"					// substitute the next value in $num after each iteration
+done								// end the `for` loop
+
+while [[ condition check ]]					// run the loop till the condition is `true`
+do								// start the loop
+	echo "Do things if condition is true"
+done								// end the loop
+
+until [[ condition check ]]					// run the loop till the condition is `false`
+do								// start the loop
+	echo "Do things if the condition is false"
+done								// end the loop
+
+while read my_file						// To read content from file
+do								// start reading the file
+	echo "Value from file is $my_file"			// substitute value from file.txt in my_file variable
+done < file.txt							// end the reading of file by passing the file name to be read
+
+while IFS="'" read f1 f2 f3					// To read from csv file by passing Internal Field Separator (IFS) / delimiter as `'`
+do								// start reading the CSV file
+	echo "the fields are $f1 $f2 $f3"
+done < file.csv							// end reading the CSV file by passing the file name to be read
+
+######################################################### Functions (2:23:42) ########################################################################
+function add {							// defining function using `function` keyword which does not need `()` after funtion name `add`
+	local num1=$1						// body of function until closing `}`
+	local num2=$2
+	let sum=$num1+$num2
+	echo "Sum of $1 and $2 is $sum"
+}								// end of funtion
+add(){								// defining function without keyword which needs `()` after function name `add`
+	body of funtion
+}								// end of funtion
+
+add 12 13							// calling the function `add` by passing 2 positional arguments
+
+######################################################### Arguments passing (2:35:45) ########################################################################
+my_script.sh arg1 arg2 ... argn					// passing argumets to script `my_script.sh`
+$1 $2 ... $n							// to retrieve positional arguments
+$@								// to retrieve all the arguments passed to the script
+$#								// to get the total number of arguments passed to the scripts
+
+for loop:
+	for arg in $@						// to go through all the argumets one at a time
+	do							// start of for loop
+		echo "$arg"					// body of for loop using $arg
+	done							// end of for loop
+
+shift								// keyword to remove first positional argument from list of arguments
+
+######################################################### Concepts (2:48:22) ########################################################################
+break								// to stop the loop
+continue							// to stop current iteration of loop and start next iteration of same loop
+sleep 1s/1m								//  to create delay between 2 executions
+exit								// to stop script at a point
+$?								// to check the exit status / return code of an execution
+basename							// to strip direcctory info and only give filename
+dirname								// to strip file name and give only directory path
+realpath							// to give absolute / full path of file
+${0}								// to get the name of the script
+ls &> /dev/null							// to get rid of the output of `ls` command
+logger								// keyword to write logs into /var/log/messages
+set -x								// command to enable debugging of the script
+set -e								// to exit the script when a command fail
+nohub ./my_script.sh &						// to run `my_script.sh` in background and generate a log file at current location named as `nohub.out`
+at <time>							// for scheduling only one time
+	<my_command>						// the command to run
+	ctrl+D							// to exit from `at` command mode
+atq								// to check scheduled job
+atrm <id>							// to remove the scheduled job
+crontab -l							// to list the existing jobs
+crontab -e							// to edit/add jobs
+	***** cd <script_path> && ./myscript.sh			// to run `my_script.sh` at a particular time
+
+######################################################### Bash Variables (3:12:20) ######################################################################## 
+RANDOM								// A random integer between 0 and 32767 is generated
+UID								// User ID of current user logged in
+
+######################################################### Archive old logs (4:12:40) ######################################################################## 
+
