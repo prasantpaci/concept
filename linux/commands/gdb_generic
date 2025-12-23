@@ -1,0 +1,20 @@
+gdb ./executable_giving_segfault
+(gdb) break main
+(gdb) run
+(gdb) info target
+<copy .init address>
+<get the code offset by subtracting code begin address from IP address from `dmesg`>
+<add offset to .init address>
+(gdb) list *(0xfinal_address)
+
+
+
+########################################
+To get the stack or backtrace of core dump:
+	gdb ./executable_generating_coredump <core_dump_file>
+	(gdb) bt
+	
+	(gdb) info threads    // for multiple threads executable
+	(gdb) thread <thread_number>
+	(gdb) bt
+	

@@ -1,0 +1,26 @@
+netstat: Network Statistics
+	options:
+		-t: tcp
+		-u: udp
+		-p: process ID (PID)
+		-a: all
+		-n: numaric address
+		-l: listening port
+To check port status:
+	netstat -an | grep <port_num>
+
+To llist all the TCP v6 ports:
+	netstat -6at
+
+To identify number of connections on a given port or IP:
+	netstat -putan | grep <port/IP>
+
+To view the routing table:
+	netstat -r
+
+To get the list of all the interfaces:
+	netstat -i
+
+To see the stats of protocol:
+	netstat -s
+

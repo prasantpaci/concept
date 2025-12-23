@@ -1,0 +1,35 @@
+https://www.youtube.com/watch?v=2iwumBcfd58&t=10s
+
+tar: combines multiple files into one archieve file similar to zip file but without compressing them.
+
+To make a tar ball of a directory:
+	tar -cf <target_file_name>.tar <source_dir_name>		// c -> create; f -> to provide file name
+
+To see/list the content of tar file without extracting it:
+	tar -tf <source_tar_file_name>.tar				// t -> traverse through tar file
+	tar -tvf <source_tar_file_name>.tar				// v -> verbose
+
+To extract a tar ball:
+	tar -xf <source_tar_file_name>.tar				// x -> extract
+	tar -xvf <source_tar_file_name>.tar
+
+gzip: To compress a file.
+
+To compress a file:
+	gzip <name_of_the_file>						// it creates a compressed file with .gz extension
+
+To uncompress a gziped file:
+	gunzip <name_of_the_file>.gz
+
+To compress a tar ball:
+	tar -czf <target_tar_compressed_file_name>.tar.gz <source_directory_name>	// z -> compress the tar ball
+	tar -cvzf <target_tar_compressed_file_name>.tar.gz <source_directory_name>
+
+To see/list the content of compressed tar ball without extracting it:
+	tar -tvf <source_tar_compressed_file_name>.tar.gz
+
+
+To extract a compressed tar ball:
+	tar -xvf <source_tar_file_name>.tar.gz
+
+

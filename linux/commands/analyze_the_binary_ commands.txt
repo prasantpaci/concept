@@ -1,0 +1,14 @@
+there are some ways to analyze the binary command in linux, including:
+
+    file: determine the file type.
+    ldd: Print shared object dependencies.
+    ltrace: A library call tracer.
+    Hexdump: Display file contents in ASCII, decimal, hexadecimal, or octal.
+    strings: Print the strings of printable characters in files.
+    readelf: Display information about ELF files.
+    objdump: Display information from an object file.
+    strace: Trace system calls and signals.
+    nm: List symbols from object files.
+    gdb: The GNU debugger.
+
+

@@ -1,0 +1,13 @@
+To copy entire `/etc` directory:
+	sudo cp -r /etc <path/name to copy>
+
+To change the ownership of directory recursively:
+	sudo chown <owner>:<group> -R <dir_name>
+
+To use backslah (\) in `echo` string:
+	echo -e "some\nthing\nin\nseprate\nline\n"
+
+To get the specific string from a line:
+	cut -d ' ' -f1 <file_name/command output>		// d -> delimiter (space ' '); f1 -> first field after separation
+	cat /etc/passwd | cut -d ':' -f1			// prints all the current user on the system
+

@@ -1,0 +1,48 @@
+blkid : To show block devices in use
+lsscsi : To show all block devices
+lsblk : List block devices
+fdisk : For partition new block device/disk
+dd (disk/data duplicator): dd if=/dev/zero of=/dev/sdb count=100 : To fromat disk 
+partprobe : To update kernel of partition modification
+parted : For partition new block device/disk
+du -h --summarize [filename] : To summarize uses of a directory
+fcstat : To list stat of fibre channel
+pvcreate : To create physical volume
+pvdisplay : To display physical volume
+vgcreate : To create volume group
+vgdisplay : To display volume group
+vgextend : To add more physical volume in volume group
+lvcreate : To create logical volume
+lvdisply : To display logical volume
+lvextend : To add more more volume in logical volume
+lvchange : To enable/disable logical volume
+/etc/fstab : File for auto mount
+mount -a : To reload the /etc/fstab config
+/etc/systemd/system : Path for files to be included by system
+systemctl daemon-reload : To reload files/config from /etc/systemd/system
+systemctl start <filename at /etc/systemd/system> : To load/configure filename mentioned
+systemctl enable <filename at /etc/systemd/system> : To auto start at system start/reboot
+cryptsetup : To create encrypted partition / file system
+mkfs.ext4 /dev/sda1 : To create ext4 type file system on 1st partition of sda drive
+dumpe2fs /dev/sda1 : To see details of file system created at /dev/sda1 (e is for ext file systems)
+e2fsck (fsck) /dev/sda1 : To check if file system created at /dev/sda1 is all correct
+tune2fs -l /dev/sda1 : To list the details of file system on /dev/sda1
+tune2fs -c 5 /dev/sda1 : To change the max mount count to 5
+resize2fs /dev/sda1 5G : To resize the /dev/sda1 partition of 5Gb size
+e2fsck -f /dev/sda1 : To fix the file system issues on /dev/sda1 partition
+pidof <process name> : To get the process ID of the named process
+pgrep <process name-ish> : To get the process ID of all matching process using Regex
+System configurations:
+	sudo lshw -html > mySpecs.html
+	lscpu: list CPU and processor info
+    	hwinfo: generic hardware information
+    	lspci: PCI busses, including graphics card, network adapter
+    	lsblk: list block devices (storage and partitions)
+    	df -h: disk free
+    	free -h: total, free, used RAM
+    	
+To clear journal log older than 7 days:
+	sudo journalctl --vacuum-time=7d
+To clear /var/cache entry:
+	sudo apt clean
+

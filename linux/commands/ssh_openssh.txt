@@ -1,0 +1,89 @@
+https://www.youtube.com/watch?v=YS5Zh7KExvE (Learn Linux TV)
+
+OpenSSH:
+	It's remote management tool that gives you access to run commands on another machine
+	
+OpenSSH uses port 22.
+To check SSH client installed:
+	which ssh
+Package that provides ssh client:
+	openssh-client
+Command line to ssh:
+	ssh <user_name>@<remote_host_ip>
+	ssh <user_name>@remote_hostname>
+To disconnect from ssh connection:
+	ctrl+d
+Path for .ssh directory:
+	/home/$USER/.ssh
+What is /home/$USER/.ssh/known_hosts:
+	writes/stores the finger prints of all the remote machines the originator host has connected so far.
+	It creates `known_hosts` file if it does not exists.
+File to check log related to SSH on remote host as a root user is located at:
+	/var/log/auth.log
+To monitor live /var/log/auth.log:
+	tail -f /var/log/auth.log
+
+################################################### Configure OpenSSH client ######################################
+Path to create config file:
+	/home/$USER/.ssh/config						// It has to be named as `config`
+Configuration to be done in config file: It can have configuration for multiple hosts
+	Host <defined_name>
+	  Hostname <IP address to refer defined_name>
+	  Port 22
+	  User <user_name to be SSHed as>
+	 
+After creating the config file ssh to that remote host as:
+	ssh <defined_name>
+
+################################################### SSH keys #####################################################
+use SSH keys to avoid using password for SSHing to remote host.
+To create/generate SSH key:
+	ssh-keygen
+Default key files created/ generated at /home/$USER/.ssh are:
+	id_rsa							(private key)		// should not be shared at any case
+	id_rsa.pub						(public key)		// can be shared to anyone
+
+After creating the key files at client end perform following steps at server end:
+	- Create .ssh directory at /home/$USER if it does not exist.
+	- Inside .ssh directory create a file named `authorized_keys`.
+	- Inside the authorized_keys file paste the content of id_rsa.pub (public key)
+	- After this client should be able to SSH server without any password prompt
+
+To do the all the steps after key files generation in single command execute:
+	ssh-copy-id -i(input file) ~/.ssh/id_rsa.pub $USER@<host_ip/hostname>		// it creates the .ssh directory along with authorized_keys file
+																				// if it does not exists. Make sure $USER is created at remote host
+
+####################################################### Managing SSH Keys #################################################
+To create a non-default type that is other than `rsa` type key:
+	ssh-keygen -t (type) ed25519 -C (comment) "write anything you want"
+To SSH by using own choice of private key:
+	ssh -i (input file) <absolute path of private key file> $USER@<host_ip/hostname>
+To start `ssh-agent`:
+	eval "$(ssh-agent)"								// It is specific to the terminal on which this is executed
+To check running ssh-agent:
+	ps aux | grep ssh-agent
+To add the pass phrase into ssh-agent/memory of that terminal:
+	ssh-add <absolute path of private key file>
+
+########################################################## Configuring SSH ####################################################
+To check the OpenSSH server is running:
+	which sshd											// also known/called as SSH daemon which accepts SSH connections
+To check the status of the sshd service:
+	systemctl status sshd
+The path of finger prints at server:
+	/etc/ssh
+Path of configuration file for the server service:
+	/etc/ssh/sshd_config								// need sudo access to work on the file
+To chage port number, authentication type and root login use /etc/ssh/sshd_config at server.
+	- After making the changes restart the service:
+		systemctl restart sshd
+To ssh with new port number from client:
+	ssh -p <new_port_num> $USER@<host_ip/hostname>
+
+###################################################### Troubleshooting OpenSSH ###################################################
+To check the logs other than /var/log/auth.log:
+	journalctl -u (unit name / service name) ssh
+	journalctl -fu (unit name / service name) ssh			// use -f (follow) option to see live logs
+
+
+	

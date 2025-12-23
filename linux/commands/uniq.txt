@@ -1,0 +1,26 @@
+https://www.youtube.com/watch?v=2b8jwRomkWM&list=PLT98CRl2KxKHKd_tH3ssq0HPrThx2hESW&index=1
+
+uniq: To remove sequential/consecutive duplicate lines from a file / command output.
+
+To remove duplicate lines from output of a command:
+	echo -e "some\nagain\nthing\nagain\nin\nseprate\nagain\nline\n" | sort | uniq
+
+To display uniq lines from a file:
+	cat <file_name> | uniq				// only remove sequential/consecutive duplicate lines from file
+	cat <file_name> | sort | uniq			// remove all duplicate lines from file
+
+To get the count of duplicate lines from file:
+	cat <file_name> | sort | uniq -c		// first column will print number of duplicate lines
+
+To print only duplicate lines from the file:
+	uniq -d <file_name>
+
+To print only uniq lines from the file:
+	uniq -u <file_name>
+
+To print duplicate lines from the file with case insensitive:
+	cat <file_name> | uniq -i
+
+
+
+
