@@ -1,0 +1,31 @@
+To Listing existing containers:
+	docker container ls -a (docker ps -a)
+To Attaching to the container:
+	docker attach <container_id_or_name>
+To detach from the container without stopping it:
+	press the Ctrl + P and Ctrl + Q keys together
+docker exec -it <container_id_or_name> echo "Hello from container!"
+	-i: Keep STDIN open even if not attached
+	-t: Allocate a pseudo-TTY
+If the container is currently stopped:
+	docker run -it -d shykes/pybuilder /bin/bash
+To start an existing container which is stopped:
+	docker start <container-name/ID>
+To stop a running container:
+	docker stop <container-name/ID>
+Then to login to the interactive shell of a container:
+	docker exec -it <container-name/ID> bash
+To start an existing container and attach to it in one command:
+	docker start -ai <container-name/ID>
+To Pipe a command to docker exec bash stdin:
+	echo 'touch myfile' | docker exec -i CONTAINER_NAME bash (Must remove the -t for it to work)
+One way to remove a running Docker container is first to stop that container using the docker stop command, and then use the docker rm command to remove it.
+
+To copy from inside container:
+	To get the docker container ID: docker ps
+	docker cp <containerID>:/path/to/file /where/to/put/file
+	
+docker run -it --rm --shm-size=300m --privileged --sysctl net.ipv6.conf.all.disable_ipv6=1 --name pavramas_2024-11-08_15.21.30 -e "ASSETS_HOST" -h pavramas_2024-11-08_15.21.30 -v /ws/pavramas/ws/src/github.com/platform/rtos/../../:/tt -w "/sw/platform/rtos/" ubuntu-rtos bash
+
+To get logs of `entrypoint.sh`:
+	docker container logs xcb-jenkins-rb_sim_shell

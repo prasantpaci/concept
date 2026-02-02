@@ -1,0 +1,16 @@
+To get help inside vim: (:help)
+To get help on all the set option of vim inside vim: (:help options)
+To get help on general option of vim inside vim: (:help option)
+To list all the set options inside vim: (:help option-list)
+https://github.com/tpope/vim-fugitive
+
+
+
+
+
+
+
+
+
+
+################################### Visual Studio Code ######################################
